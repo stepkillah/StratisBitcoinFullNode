@@ -5,7 +5,7 @@
     },
     "Impleum.ImpleumD Test": {
       "commandName": "Project",
-      "commandLineArgs": "-testnet"
+      "commandLineArgs": "-testnet -addnode=94.131.240.45"
     },
     "Impleum.ImpleumD with RPC": {
       "commandName": "Project",

@@ -608,8 +608,8 @@ namespace NBitcoin
 
             var builder = new NetworkBuilder()
                 .SetName("ImpleumMain")
-                .SetRootFolderName(StratisRootFolderName)
-                .SetDefaultConfigFilename(StratisDefaultConfigFilename)
+                .SetRootFolderName(ImpleumRootFolderName)
+                .SetDefaultConfigFilename(ImpleumDefaultConfigFilename)
                 .SetConsensus(consensus)
                 .SetMagic(magic)
                 .SetGenesis(genesis)
@@ -726,29 +726,29 @@ namespace NBitcoin
         private static Network InitImpleumRegTest()
         {
             // TODO: move this to Networks
-            var net = Network.GetNetwork("StratisRegTest");
+            var net = Network.GetNetwork("ImpleumRegTest");
             if (net != null)
                 return net;
 
             Block.BlockSignature = true;
             Transaction.TimeStamp = true;
 
-            var consensus = Network.StratisTest.Consensus.Clone();
+            var consensus = Network.ImpleumTest.Consensus.Clone();
             consensus.PowLimit = new Target(uint256.Parse("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"));
 
             consensus.PowAllowMinDifficultyBlocks = true;
             consensus.PowNoRetargeting = true;
 
             var messageStart = new byte[4];
-            messageStart[0] = 0xcd;
+            messageStart[0] = 0xdc;
             messageStart[1] = 0xf2;
             messageStart[2] = 0xc0;
             messageStart[3] = 0xef;
             var magic = BitConverter.ToUInt32(messageStart, 0);
 
-            var genesis = Network.StratisMain.GetGenesis();
-            genesis.Header.Time = 1494909211;
-            genesis.Header.Nonce = 2433759;
+            var genesis = Network.ImpleumMain.GetGenesis();
+            genesis.Header.Time = 152436701;
+            genesis.Header.Nonce = 1353602;
             genesis.Header.Bits = consensus.PowLimit;
             consensus.HashGenesisBlock = genesis.GetHash(consensus.NetworkOptions);
 
@@ -757,16 +757,16 @@ namespace NBitcoin
             consensus.DefaultAssumeValid = null; // turn off assumevalid for regtest.
 
             var builder = new NetworkBuilder()
-                .SetName("StratisRegTest")
-                .SetRootFolderName(StratisRootFolderName)
-                .SetDefaultConfigFilename(StratisDefaultConfigFilename)
+                .SetName("ImpleumRegTest")
+                .SetRootFolderName(ImpleumRootFolderName)
+                .SetDefaultConfigFilename(ImpleumDefaultConfigFilename)
                 .SetConsensus(consensus)
                 .SetMagic(magic)
                 .SetGenesis(genesis)
-                .SetPort(18444)
-                .SetRPCPort(18442)
-                .SetMaxTimeOffsetSeconds(StratisMaxTimeOffsetSeconds)
-                .SetMaxTipAge(StratisDefaultMaxTipAgeInSeconds)
+                .SetPort(17444)
+                .SetRPCPort(17442)
+                .SetMaxTimeOffsetSeconds(ImpleumMaxTimeOffsetSeconds)
+                .SetMaxTipAge(ImpleumDefaultMaxTipAgeInSeconds)
                 .SetBase58Bytes(Base58Type.PUBKEY_ADDRESS, new byte[] { (65) })
                 .SetBase58Bytes(Base58Type.SCRIPT_ADDRESS, new byte[] { (196) })
                 .SetBase58Bytes(Base58Type.SECRET_KEY, new byte[] { (65 + 128) })
